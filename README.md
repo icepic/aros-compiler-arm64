@@ -13,7 +13,7 @@ docker run --rm -v "$PWD":/work ghcr.io/icepic/aros-compiler-arm64:aarch64-aros 
     aarch64-aros-gcc -O2 hello.c -o hello
 ```
 
-Without a registry: download `aros-compiler-arm64.tar.gz` from the release, then `docker load < aros-compiler-arm64.tar.gz`.
+Without a registry: download `aros-compiler-arm64.tar.gz` from the [image release](https://github.com/icepic/aros-compiler-arm64/releases/tag/image-aarch64-aros-20261103), then `docker load < aros-compiler-arm64.tar.gz`. The loaded tag is `ghcr.io/icepic/aros-compiler-arm64:ci-2`; it is the same image as `:aarch64-aros`.
 
 ## Build
 
