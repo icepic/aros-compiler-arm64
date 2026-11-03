@@ -29,7 +29,7 @@ docker wait aros-build
 docker build --platform linux/arm64 -t aros-compiler:aarch64-aros .
 ```
 
-The volume holds about 11 GB. A from-scratch build (GCC and binutils, then the full AROS tree) takes hours on 4 cores; with the `crosstools` stage cached, a rebuild takes about 5 minutes. Run the container detached: `build.sh` logs to `/aros/run.log` in the volume and resumes after an interruption.
+The volume holds about 11 GB. A from-scratch build (GCC and binutils, then the full AROS tree) took 23 minutes on a GitHub arm64 runner (4 cores); with the `crosstools` stage cached, a rebuild takes about 5 minutes. `.github/workflows/build.yml` runs this build, the tests and the push to ghcr.io. Run the container detached: `build.sh` logs to `/aros/run.log` in the volume and resumes after an interruption.
 
 Workarounds in `build.sh`, each needed on an arm64 host:
 
@@ -55,9 +55,9 @@ Same source, `test/objtest.sh` and `test/fulltest.sh`:
 | `clang --target=aarch64-aros -c` objects | byte-identical |
 | `gcc -c fp.c` (`double *= 10.0`) | compiles; amd64 under Rosetta: internal compiler error |
 | 10 x `gcc -c hello.c` | 0.27 s against 2.8 s |
-| SDK static libraries | 170, including all 150 of the amd64 image's |
+| SDK static libraries | 166, including all 150 of the amd64 image's |
 
-- The SDK comes from AROS master `8b16329` (2026-11-01). The amd64 image's is from October, so linked programs differ in size and this SDK has 20 more libraries.
+- The SDK comes from AROS master `8b16329` (2026-11-01). The amd64 image's is from October, so linked programs differ in size and this SDK has 16 more libraries.
 - `Developer/Debug/Tests` (244 test programs) is absent.
 
 ## Raspberry Pi 500 / Pi 5 black screen
