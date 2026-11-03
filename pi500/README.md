@@ -2,6 +2,8 @@
 
 AROS aarch64-raspi nightlies boot to a black screen on the Pi 500 (BCM2712 D0, bootloader 2025-05-08). Boot text and the mouse pointer show; screens do not.
 
+Updating the Pi 500 firmware from Raspberry Pi OS also fixes it, as reported by another user on the AROS forum. The patch below was accepted upstream because it makes AROS independent of the firmware's alpha setting, as Raspberry Pi OS does.
+
 ## Cause
 
 `vcgfx` builds every screen's HVS6 plane from a copy of the firmware's framebuffer plane entry. On this firmware that entry has per-pixel alpha (`CTL0` bits 19:18 = 0). AROS bitmaps have alpha 0, so each screen composes as transparent. The pointer has real alpha and shows.
