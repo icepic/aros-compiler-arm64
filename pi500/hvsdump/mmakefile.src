@@ -1,0 +1,15 @@
+# Diagnostic tool: BCM2712 HVS6 display list and scanned-pixel dump.
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES   := hvsdump
+EXEDIR  := $(AROS_TOOLS)
+
+#MM- workbench-tools : workbench-tools-hvsdump
+#MM  workbench-tools-hvsdump : includes linklibs
+
+%build_prog mmake=workbench-tools-hvsdump \
+    progname=hvsdump targetdir=$(EXEDIR) \
+    files=$(FILES)
+
+%common

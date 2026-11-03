@@ -1,0 +1,20 @@
+diff --git a/arch/arm-native/soc/broadcom/2708/hidd/vcgfx/vcgfx_hvs6.c b/arch/arm-native/soc/broadcom/2708/hidd/vcgfx/vcgfx_hvs6.c
+index 53d6d685..dfaf688b 100644
+--- a/arch/arm-native/soc/broadcom/2708/hidd/vcgfx/vcgfx_hvs6.c
++++ b/arch/arm-native/soc/broadcom/2708/hidd/vcgfx/vcgfx_hvs6.c
+@@ -292,6 +292,15 @@ BOOL vc4_hvs6_takeover(struct VideoCoreGfx_staticdata *xsd, ULONG fb_phys,
+         hvs6_plane(dst, src, (UQUAD)fb_phys, fb_pitch, st->h6_FbPTR0,
+                    0, 0, fb_width, fb_height);
+     }
++
++    /* Screens are opaque, and every plane but the cursor is built from this
++     * slot: take fixed alpha whatever the firmware entry carries. AROS bitmaps
++     * have alpha 0, so with per-pixel alpha (CTL0 bits 19:18 = 0, as the
++     * Pi 500 firmware leaves them) nothing of a screen shows. The cursor
++     * clears the bits again for its own alpha. */
++    hvs6_wr(dst + HVS6_ENT_CTL0 * 4,
++            hvs6_rd(dst + HVS6_ENT_CTL0 * 4) | HVS6_CTL0_ALPHAMASK);
++
+     hvs6_wr(hvs6_slot(st, HVS6_SLOT_CUR), HVS6_CTL0_EMPTY);
+     hvs6_wr(hvs6_slot(st, HVS6_SLOT_END), HVS6_CTL0_END);
+ 

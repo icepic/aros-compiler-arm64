@@ -1,0 +1,4 @@
+context/
+out/
+test/*.o
+test/*.link

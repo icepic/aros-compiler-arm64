@@ -1,0 +1,13 @@
+# Native arm64 build host for AROS raspi-aarch64: builds its own aarch64-aros
+# GCC 6.5 cross toolchain (make crosstools), no emulation.
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates curl wget git make gcc g++ gawk bison flex bzip2 \
+        netpbm autoconf automake libtool perl patch libc6-dev liblzo2-dev \
+        libpng-dev byacc python3 python3-mako python3-yaml cmake unzip \
+        xz-utils zsh file && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /aros
