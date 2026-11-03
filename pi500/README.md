@@ -12,7 +12,7 @@ Updating the Pi 500 firmware from Raspberry Pi OS also fixes it, as reported by 
 
 `vcgfx-hvs6-opaque-screens.patch` sets the alpha mask to fixed (`CTL0` bits 19:18 = 3) on that slot in `vc4_hvs6_takeover`. The cursor clears the bits again for its own alpha.
 
-Verified on a Pi 500 by writing the same bit at runtime with `hvsdump FIXED` (`CTL0` `6000e007` to `600ce007`): the desktop appeared and was usable. A kernel built with the patch was installed on the same card; its result is not yet reported here.
+Verified on a Pi 500 by writing the same bit at runtime with `hvsdump FIXED` (`CTL0` `6000e007` to `600ce007`): the desktop appeared and was usable. A kernel built with the patch (AROS master `8b16329`), run on the same card and firmware with no tool, also shows the desktop.
 
 ## Files
 
